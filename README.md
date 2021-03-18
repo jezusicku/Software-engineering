@@ -17,8 +17,9 @@ int *arrayy(int n)
 }
 
 //mnozenie wielomianow
-int* mnozenie(int *arr4, int *arr5, int n, int m)
-{
+	
+	int* mnozenie(int *arr4, int *arr5, int n, int m)
+	{
     int *wynik=new int [m+n];
     
     for(int i=0; i<m; i++)
@@ -32,7 +33,8 @@ int* mnozenie(int *arr4, int *arr5, int n, int m)
 }
 
 //sortowanie
-    void quick_sort(int *tab, int lewy, int prawy)
+
+void quick_sort(int *tab, int lewy, int prawy)
 {
 	if(prawy <= lewy) return;
 	
