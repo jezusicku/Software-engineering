@@ -1,0 +1,142 @@
+#include <iostream>
+using namespace std;
+
+struct Element
+{
+    string name;
+    Element *next;
+};
+
+struct List
+{
+    Element *firstElement;
+    int length;
+    List()
+    {
+        this->firstElement=NULL;
+        this->length=0;
+    }
+};
+
+void add(Element *e)
+{
+    if(length==0)
+    {
+        firstElement=e;
+    }
+    else
+    {
+        Element *element=firstElement;
+        while(element->next!=NULL)
+        element=element->next;
+        element->next=e;
+    }
+    length++;
+}
+
+bool contain(const string &name)
+{
+    Element *element=firstElement;
+    while(element!=NULL)
+    {
+        if(element->name==name)
+        return true;
+        element=element->next;
+    }
+    return false;
+}
+
+bool isEmpty()
+{
+    return size==0;
+}
+
+int size()
+{
+    return size() const;
+}
+
+bool remove(const string& Name)
+{
+    if(isEmpty())
+    {
+        return false;
+    }
+
+    Node* temp=head;
+    bool found=false;
+    if(temp->name==Name)
+    {
+        head=temp->next;
+        delete temp;
+        size--;
+        return true;
+    }
+    while(temp)
+    {
+        if(temp->next!=NULL && temp->next->name==Name)
+        {
+            found=true;
+            break;
+        }
+        temp=temp->next;
+    }
+    if(found)
+    {
+        Node* element=temp->next;
+        temp->next=temp->next->next;
+        delete element;
+        size--;
+        return found;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+void reverse()
+    {
+       Node* temp=head;
+        Node *prev=NULL, *next=NULL;
+ 
+        while (temp!=NULL) {
+            next=temp->next;
+            current->next = prev;
+            prev=temp;
+            temp=next;
+        }
+        head=prev;
+    }
+
+void toarr(int arr[])
+{
+    int temp = 0;
+    for (int const &i: list) {
+        arr[temp++] = i;
+    }
+    return arr;
+}
+
+void removeRep()
+{
+   Node *temp, *temp2, *rep;
+    while (temp!=NULL && temp->next!=NULL)
+    {
+        temp2=temp;
+        while (temp2->next!=NULL)
+        {
+            if (temp->data==temp2->next->data)
+            {
+                rep=temp2->next;
+                temp2->next=temp2->next->next;
+                delete(rep);
+            }
+            else
+                temp2=temp2->next;
+        }
+        temp=temp->next;
+    }
+}
+}
+}
