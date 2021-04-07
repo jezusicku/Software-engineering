@@ -1,0 +1,116 @@
+#include <iostream>
+using namespace std;
+
+unsigned short dopelnienie(unsigned short arr)
+{
+    return ~(arr);
+}
+
+unsigned short czesc_wspolna(unsigned short arr1,unsigned short arr2)
+{
+    return (arr1 & arr2);
+}
+
+unsigned short suma(unsigned short arr1, unsigned short arr2)
+{
+    return (arr1 | arr2);
+}
+
+unsigned short diff(unsigned short arr1, unsigned short arr2)
+{
+    return ((arr1^arr2)&arr1);
+}
+
+unsigned short symdiff(unsigned short arr1, unsigned short arr2)
+{
+    return suma(diff(a,b),diff(b,a));
+}
+
+bool isFound(unsigned short num, unsigned short n)
+{
+    if(n<=0 || n>16)
+    {
+        return false;
+    }
+    int temp = 1<<(16-n);
+    return num&temp;
+}
+
+void add(int n)
+{
+    if(n>=1 && n<=16)
+    {
+        set = set | (((unsiged short int) 1) << (16-n));
+    }
+}
+
+bool contain(int n)
+{
+    if(n<1 || n>16)
+    {
+        return false;
+    }
+    return (set >> (16-n)) % 2 == 1;
+}
+
+ostream &operator<<(ostream &out, const Set &A)
+{
+    bool first=false;
+    for(int i=1; i<=16; i++)
+    {
+        if((A.set>>(16-i))&2==1)
+        {
+            if(!first)
+            {
+                out<<"{"<<i;
+                first=true;
+            }
+            else out << ", " << i;
+
+        }
+    }
+    if(first) out << "}";
+    else out << "-";
+    return out;
+}
+
+int remove(unsigned short* set, unsigned short element)
+{
+    unsigned short temp = 1 << L-element;
+    temp=~temp;
+    *set=*set&temp;
+}
+
+int car(int h,int g, int c)
+{
+    if(g==0)
+    {
+        return c;
+    }
+    if((h&g)!=0)
+    {
+        c++;
+    }
+    return car(h,g<<1,c);
+}
+
+int Cardinality(int h)
+{
+    return car(h,1,0);
+}
+
+void operator+=(Set &A, const Set &B)
+{
+    A.set=A.set|B.set;
+}
+
+int main()
+{
+    unsigned short int arr1=9;
+    unsigned short int arr2=5;
+    unsigned short int wynik;
+    cout << bitset<16> (arr1) << endl;
+    cout << bitset<16> (arr2) << endl;
+    wynik=suma(arr1,arr2);
+    cout << bitset<16> (wynik) << endl;
+}
