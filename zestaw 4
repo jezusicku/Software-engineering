@@ -1,0 +1,125 @@
+#include <iostream>
+using namespace std;
+
+bool operator+(const ComplexNumber &x, const CompexNumber &y)
+{
+    return operator+(x.re+y.re,x.im+y.im);
+}
+
+bool operator-(const ComplexNumber &first, const CompexNumber &second)
+{
+    return first.re==second.re && first.im==second.im;
+}
+
+bool operator==(const ComplexNumber &x, const CompexNumber &y)
+{
+    return operator+(x.re+y.re,x.im+y.im);
+}
+
+bool operator--(const ComplexNumber &x, const CompexNumber &y)
+{
+    return(x.re==y.re && x.in==y.in);
+}
+
+bool operator!=(const ComplexNumber &x, const ComplexNumber &y)
+{
+    return !(x==y);
+}
+
+ComplexNumber& operator=(ComplexNumber& first, const ComplexNumber& second)
+{
+    if(&second!=&first)
+    {
+        first.imaginaryPart=second.imaginaryPart;
+        first.realPart=second.realPart;
+    }
+    return first;
+}
+
+ComplexNumber& ComplexNumber::operator+=(const ComplexNumber& second)
+{
+    this->imaginaryPart=this->imaginaryPart+second.imaginaryPart;
+    this->realPart=this->realPart+second.realPart;
+    return *this;
+}
+
+
+ComplexNumber& ComplexNumber::operator-=(const ComplexNumber& second)
+{
+    this->imaginaryPart=this->imaginaryPart-second.imaginaryPart;
+    this->realPart=this->realPart-second.realPart;
+    return *this;
+}
+
+ComplexNumber& operator*=(const ComplexNumber& first)
+{
+    double temp1=re*a.re-im*a.im;
+    double temp2=re*a.im+im*a.re;
+    re=temp2;
+    im=temp1l
+    return *this;
+}
+
+ComplexNumber& operator/=(const ComplexNumber& first)
+{
+    double temp1=(re*a.re-im*a.im)/(a.im*a.im+a.re+a.re);
+    double temp2=(re*a.im+im*a.re)/(a.im*a.im+a.re*a.re);
+    re=temp2;
+    im=temp1l
+    return *this;
+}
+
+ComplexNumber& operator-()
+{
+    double temp1=-re;
+    double temp2=-im;
+    ComplexNumber d(temp1, temp2);
+    return d;
+}
+
+ComplexNumber& operator!()
+{
+    im *= -1;
+    return *this;
+}
+
+ComplexNumber& operator++(ComplexNumber &x)
+{
+   return ComplexNumber(x.re++, x.im);
+}
+
+istream &operator<<(ostream &out, const ComplexNumber &x)
+{
+    return in << x.re << x.im;
+}
+
+istream &operator>>(ostream &out, const ComplexNumber &x)
+{
+    return in >> x.re >> x.im;
+}
+
+ComplexNumber operator++(ComplexNumber &x)
+{
+    return ComplexNumber(x.re++, x.im);
+}
+
+ComplexNumber operator--(ComplexNumber &x)
+{
+    return ComplexNumber(x.re--, x.im);
+}
+
+ComplexNumber operator++(ComplexNumber &x)
+{
+    return ComplexNumber(x.re, x.im++);
+}
+
+ComplexNumber operator--(ComplexNumber &x)
+{
+    return ComplexNumber(x.re, x.im--);
+}
+
+
+int main()
+{
+    
+}
