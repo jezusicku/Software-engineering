@@ -44,35 +44,6 @@ void add(int n)
     }
 }
 
-bool contain(int n)
-{
-    if(n<1 || n>16)
-    {
-        return false;
-    }
-    return (set >> (16-n)) % 2 == 1;
-}
-
-ostream &operator<<(ostream &out, const Set &A)
-{
-    bool first=false;
-    for(int i=1; i<=16; i++)
-    {
-        if((A.set>>(16-i))&2==1)
-        {
-            if(!first)
-            {
-                out<<"{"<<i;
-                first=true;
-            }
-            else out << ", " << i;
-
-        }
-    }
-    if(first) out << "}";
-    else out << "-";
-    return out;
-}
 
 int remove(unsigned short* set, unsigned short element)
 {
@@ -99,10 +70,6 @@ int Cardinality(int h)
     return car(h,1,0);
 }
 
-void operator+=(Set &A, const Set &B)
-{
-    A.set=A.set|B.set;
-}
 
 int main()
 {
