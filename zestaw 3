@@ -23,7 +23,7 @@ unsigned short diff(unsigned short arr1, unsigned short arr2)
 
 unsigned short symdiff(unsigned short arr1, unsigned short arr2)
 {
-    return suma(diff(a,b),diff(b,a));
+    return suma(diff(arr1,arr2),diff(arr2,arr1));
 }
 
 bool isFound(unsigned short num, unsigned short n)
@@ -45,9 +45,9 @@ void add(int n)
 }
 
 
-int remove(unsigned short* set, unsigned short element)
+int remove(unsigned short* set, unsigned short n)
 {
-    unsigned short temp = 1 << L-element;
+    unsigned short temp = 1 << n;
     temp=~temp;
     *set=*set&temp;
 }
