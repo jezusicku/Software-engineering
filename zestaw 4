@@ -1,6 +1,13 @@
 #include <iostream>
 using namespace std;
 
+class ComplexNumber 
+{
+    public:
+    float re;
+    float im;
+
+
 bool operator+(const ComplexNumber &x, const CompexNumber &y)
 {
     return operator+(x.re+y.re,x.im+y.im);
@@ -18,7 +25,7 @@ bool operator==(const ComplexNumber &x, const CompexNumber &y)
 
 bool operator--(const ComplexNumber &x, const CompexNumber &y)
 {
-    return(x.re==y.re && x.in==y.in);
+    return(x.re==y.re && x.im==y.im);
 }
 
 bool operator!=(const ComplexNumber &x, const ComplexNumber &y)
@@ -30,31 +37,31 @@ ComplexNumber& operator=(ComplexNumber& first, const ComplexNumber& second)
 {
     if(&second!=&first)
     {
-        first.imaginaryPart=second.imaginaryPart;
-        first.realPart=second.realPart;
+        first.im=second.im;
+        first.re=second.re;
     }
     return first;
 }
 
 ComplexNumber& ComplexNumber::operator+=(const ComplexNumber& second)
 {
-    this->imaginaryPart=this->imaginaryPart+second.imaginaryPart;
-    this->realPart=this->realPart+second.realPart;
+    this->im=this->im+second.im;
+    this->re=this->re+second.re;
     return *this;
 }
 
 
 ComplexNumber& ComplexNumber::operator-=(const ComplexNumber& second)
 {
-    this->imaginaryPart=this->imaginaryPart-second.imaginaryPart;
-    this->realPart=this->realPart-second.realPart;
+    this->im=this->im-second.im;
+    this->re=this->re-second.re;
     return *this;
 }
 
-ComplexNumber& operator*=(const ComplexNumber& first)
+ComplexNumber& operator*=(const ComplexNumber& a)
 {
-    double temp1=re*a.re-im*a.im;
-    double temp2=re*a.im+im*a.re;
+    double temp1=re*a.re-im*a.im;  // a + bi = x + yi * a + bi
+    double temp2=re*a.im+im*a.re; //   a - bi         
     re=temp2;
     im=temp1l
     return *this;
@@ -62,10 +69,14 @@ ComplexNumber& operator*=(const ComplexNumber& first)
 
 ComplexNumber& operator/=(const ComplexNumber& first)
 {
-    double temp1=(re*a.re-im*a.im)/(a.im*a.im+a.re+a.re);
-    double temp2=(re*a.im+im*a.re)/(a.im*a.im+a.re*a.re);
-    re=temp2;
-    im=temp1l
+    ComplexNumber temp1;
+    //mnoze przez sprzezenie zeby sie pozbyc i w mianowniku
+
+    double temp1.re=(a.re+a.im)*(a.im*a.im+a.re*a.re); //mnoze przez sprzezenie zeby sie pozbyc i w mianowniku
+    double temp2.im=(re+im)*(a.im*a.im+a.re*a.re);
+
+    re=;
+    im=temp1;
     return *this;
 }
 
@@ -98,7 +109,7 @@ istream &operator>>(ostream &out, const ComplexNumber &x)
     return in >> x.re >> x.im;
 }
 
-ComplexNumber operator++(ComplexNumber &x)
+ComplexNumber operator++(int)(ComplexNumber &x) //postinkrementacja
 {
     return ComplexNumber(x.re++, x.im);
 }
@@ -116,6 +127,7 @@ ComplexNumber operator++(ComplexNumber &x)
 ComplexNumber operator--(ComplexNumber &x)
 {
     return ComplexNumber(x.re, x.im--);
+}
 }
 
 
