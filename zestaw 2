@@ -9,24 +9,26 @@ struct Element
 
 struct List
 {
-    Element *firstElement;
+    Element *head;
     int length;
     List()
     {
-        this->firstElement=NULL;
+        this->head=NULL;
         this->length=0;
     }
 };
+
+List list;
 
 void add(Element *e)
 {
     if(length==0)
     {
-        firstElement=e;
+        head=e;
     }
     else
     {
-        Element *element=firstElement;
+        Element *element=head;
         while(element->next!=NULL)
         element=element->next;
         element->next=e;
@@ -36,7 +38,7 @@ void add(Element *e)
 
 bool contain(const string &name)
 {
-    Element *element=firstElement;
+    Element *element=head;
     while(element!=NULL)
     {
         if(element->name==name)
@@ -63,7 +65,7 @@ bool remove(const string& Name)
         return false;
     }
 
-    Node* temp=head;
+    Element* temp=head;
     bool found=false;
     if(temp->name==Name)
     {
@@ -83,7 +85,7 @@ bool remove(const string& Name)
     }
     if(found)
     {
-        Node* element=temp->next;
+        Element* element=temp->next;
         temp->next=temp->next->next;
         delete element;
         size--;
@@ -97,43 +99,49 @@ bool remove(const string& Name)
 
 void reverse()
     {
-       Node* temp=head;
-        Node *prev=NULL, *next=NULL;
+       Element* temp=head;
+        Element *prev=NULL, *next=NULL;
+        
  
         while (temp!=NULL) {
             next=temp->next;
-            current->next = prev;
+            temp->next = prev;
             prev=temp;
             temp=next;
         }
         head=prev;
     }
 
-void toarr(int arr[])
+void toarr(string arr[])
 {
     int temp = 0;
-    for (int const &i: list) {
-        arr[temp++] = i;
+    Element element = head;
+    while(element!=NULL)
+    {
+         element=element->next;
+         arr[temp++]=element->name;
+        
     }
-    return arr;
 }
 
 void removeRep()
 {
-   Node *temp, *temp2, *rep;
-    while (temp!=NULL && temp->next!=NULL)
+   Element *temp=head;
+   Element *temp2, *rep;
+   while(temp!=NULL && temp->next!=NULL)
     {
         temp2=temp;
-        while (temp2->next!=NULL)
+        while(temp2->next!=NULL)
         {
-            if (temp->data==temp2->next->data)
+            if(temp->name==temp2->next->name)
             {
                 rep=temp2->next;
                 temp2->next=temp2->next->next;
-                delete(rep);
             }
             else
+            {
                 temp2=temp2->next;
+            }
         }
         temp=temp->next;
     }
