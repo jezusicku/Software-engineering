@@ -1,0 +1,230 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+
+void reverse() //pobiera z wejscia, odwraca i zamienia na wielkie
+{
+    char text[20];
+    scanf("%s",text);
+    int size = strlen(text);
+    for(int i=size-1; i>=0; i--)
+    {
+        printf("%c", islower(*(text+i)) ? toupper(*(text+i)) : *(text+i));
+    }
+}
+
+
+void read_number(int val)
+{
+    char arr[][10] = {
+        "zero",
+        "jeden",
+        "dwa",
+        "trzy",
+        "cztery",
+        "piec",
+        "szesc",
+        "siedem",
+        "siedem",
+        "osiem",
+        "dziewiec"
+    };
+    char s[11];
+    sprintf(s,"%d",val);
+    printf("input: %d \n", val);
+
+    for(int i=0; i<strlen(s); i++)
+    {
+        char *p;
+        char ba = s[i];
+        int a = (int) strtol(&ba, &p, 10);
+        printf("%s", arr[a]);
+    }
+    printf('\n');
+}
+
+int count_zeros(long number)
+{
+    int counter=0;
+    int size=0;
+    for(int i=0; i<sizeof(long)*8; i++)
+    {
+        if(number & 1 << i)
+        {
+            size=i;
+        }
+    }
+    for(int i=0; i<size; i++)
+    {
+        if(!(number & 1 << i))
+        {
+            counter++;
+        }
+    }
+    return counter;
+}
+
+int value(char r)
+{
+    if (r == 'I')
+        return 1;
+    if (r == 'V')
+        return 5;
+    if (r == 'X')
+        return 10;
+    if (r == 'L')
+        return 50;
+    if (r == 'C')
+        return 100;
+    if (r == 'D')
+        return 500;
+    if (r == 'M')
+        return 1000;
+ 
+    return -1;
+}
+
+void romanian()
+{
+    char word[100];
+    int charIndex=0;
+    scanf_s("%c", &word[charIndex]);
+    while(word[charIndex]!='\n')
+    {
+        if('a' <= word[charIndex])
+        {
+            word[charIndex]-=32;
+            scanf_s("%c", &word[++charIndex]);
+        }
+    }
+
+int i=charIndex;
+int newnum=0;
+int lastnum=-1;
+while(i-- > 0)
+{
+    int value = getValue(word[i]);
+    if(value >=lastnum)
+    {
+        lastnum=value;
+        newnum+=value;
+    }
+    else
+    {
+        newnum-=value;
+    }
+
+}
+printf("\n %d", newnum);
+}
+
+void plik()
+{
+    FILE* fr;
+    char buffer[1000];
+    if((fr=fopen("plik.txt,"r"))==NULL)
+    {
+        return; 
+        /*blad otwierania*/
+    }
+    char help[10];
+    double num=0;
+    int count=0;
+    while(fscanf(fr,"&[^\n]",buffer)!=-1)
+    {
+        for(int i=0; i<1000 && buffer[i]!=10;i++)
+        {
+            if(buffer[i]==' ')
+            {
+                int j=0;
+                while(buffer[i]!=10)
+                {
+                    help[j]=buffer[i];
+                    j++;
+                    i++;
+                }
+                count++;
+                num+=atof(help);
+                break;
+            }
+        }
+        fseek(fr,1,SEEK_CUR);
+    }
+    fclose(fr);
+    if((fr = fopen("sciezka bla/bla/bla","w"))==NULL)
+    {
+        return;
+    }
+    fprintf(fr,"%f",num/count);
+    fclose(fr);
+}
+
+void plik2()
+{
+    FILE* fr;
+    char buffer[1000];
+    if((fr=fopen("plik.txt,"r"))==NULL)
+    {
+        return; 
+        /*blad otwierania*/
+    }
+    char help[10];
+    double num=0;
+    int count=0;
+    while(fscanf(fr,"%[^\n]",buffer)!=-1)
+    {
+        for(int i=0; i<1000; i++)
+        {
+            if(buffer[i]==":")
+            {
+                int j=0;
+                i++;
+                while(buffer[i]!=10)
+                {
+                    help[j]=buffer[i];
+                    j++;
+                    i++;
+
+                }
+                count++;
+                num+=atof(help);
+                break;
+            }
+        }
+        fseek(fr,1,SEEK_CUR);
+    }
+    fclose(fr);
+    if((fr=fopen("plik.txt","w"))==NULL)
+    {
+        return;
+    }
+    if(count!=0)
+    {
+        fprintf(fr,"%f", num/count);
+
+    }
+    fclose(fr);
+}
+
+int main(int argc, char* argv[])
+{
+
+    char *text;
+    char *s1 = "abcdefghijklmnoprstwxyz";
+    char *s2 = "zyxwtsrponmlkjihgfedcba";
+    text = read();
+    for(int i=0; text[i]!='\0'; i++)
+    {
+        int index = getIndex(text[i], s1);
+        if(index!=-1 && strlen(s2)>index)
+        {
+            printf("%c", s2[index]);
+        }
+        else
+        {
+            printf("%s",text[i]);
+        }
+    }
+    free(text);
+}
