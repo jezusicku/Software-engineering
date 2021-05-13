@@ -1,0 +1,200 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define n 3
+
+
+struct matrix
+{
+    int matrix[n][n];
+};
+
+void random(struct matrix *m)
+{
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = 0; j < n; ++j) 
+        {
+            m->matrix[i][j]=rand()%10;
+        }
+    }
+}
+
+struct matrix add(struct matrix *m1, struct matrix *m2)
+{
+    struct matrix temp;
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = 0; j < n; ++j) 
+        {
+            temp[i][j]=m1->matrix[i][j]+m2->matrix[i][j];
+        }
+    }
+    return temp;
+    
+}
+
+
+struct matrix sub(struct matrix *m1, struct matrix *m2)
+{
+    struct matrix temp;
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = 0; j < n; ++j) 
+        {
+            temp[i][j]=m1->matrix[i][j]-m2->matrix[i]
+        }
+    }
+    return temp;
+    
+}
+
+struct matrix mult_constant(struct matrix *m, int x)
+{
+    struct matrix temp;
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = 0; j < n; ++j) 
+        {
+            temp[i][j]=m->matrix[i][j]*x;
+        }
+    }
+    return temp;
+    
+}
+
+struct matrix mult(struct matrix *m1, struct matrix *m2)
+{
+    struct matrix temp;
+    for (int i = 0; i < n; ++i)
+    { //rzędy pierwszej matrixy
+      for (int j = 0; j < n; ++j)
+      { //kolumny drugiej matrixy
+         for (int k = 0; k < n; ++k)
+         { //kolumny pierwszej matrixy
+            temp[i][j] += m1->matrix[i][j] * m2->matrix[k][j];
+         }
+      }
+   }
+   return temp;
+}
+
+void tr(struct matrix *m)
+{
+    int temp;
+    for(int i = 0; i < n; i++ ) //wiersze
+    {
+        for(int j = i+1; j < n; j++)
+        {
+            temp=m->matrix[i][j];
+            m->matrix[i][j] = m->matrix[j][i];
+            m->matrix[j][i]=temp;
+        }
+    }
+}
+
+struct matrix add_pr_diag(struct matrix *m1, struct matrix *m2)
+{
+    struct matrix temp;
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = 0; j < n; ++j) 
+        {
+            if(i==j)
+            {
+                temp[i][j]=m1->matrix[i][j]+m2->matrix[i][j];
+            }
+            
+        }
+    }
+    return temp;
+    
+}
+
+
+long long wyznacznik(struct matrix *m, int n) {
+    int i, j, k;
+    int m = 0;
+    long long dopelnienie[32][32];
+    long long wynik = 0;
+    if (n == 1) return matrix[0][0];
+    else
+    {
+        for (i = 0; i < n; i++)
+        {
+            if (matrix[0][i] != 0)
+            {
+                for (j = 1; j < n; j++)
+                {
+                    m = 0;
+                    for (k = 0; k < n; k++) {
+                        if (k != i) dopelnienie[j - 1][m++] = matrix[j][k];
+                    }
+                }
+                if (i % 2 == 0) wynik += matrix[0][i] * wyznacznik(dopelnienie, n - 1);
+                else wynik -= matrix[0][i] * wyznacznik(dopelnienie, n - 1);
+            }
+        }
+    }
+    return wynik;
+}
+
+bool gorna(struct matrix *m)
+{
+    for(int i = 0 ; i < n ; i++)
+    {
+        for(int j = 0 ; j < n ; j++)
+        {
+            if(i<=j)
+            {
+                if(m->matrix[i][j]!=0)
+                {
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
+
+bool dolna(struct matrix *m)
+{
+    for(int i = 0 ; i < n ; i++)
+    {
+        for(int j = 0 ; j < n ; j++)
+        {
+            if(i>=j)
+            {
+                if(m->matrix[i][j]!=0)
+                {
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
+
+
+void print(struct matrix *m)
+{
+    for(int i = 0 ; i < n ; i++) {
+        printf(" (");
+        for(int j = 0 ; j < n ; j++){
+            printf("%d  ", m->matrix[i][j]);
+        }
+        printf(")\n");
+    }
+}
+
+
+
+int main()
+{
+    struct matrix m1;
+    struct matrix m2;
+
+    random(&m1);
+    print(&m1);
+    tr(&m1);
+    print(&m1);
+}
