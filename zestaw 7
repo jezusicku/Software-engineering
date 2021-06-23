@@ -1,0 +1,80 @@
+#include <iostream>
+#include <vector>
+
+class Shape
+{
+	virtual void draw() = 0;
+	virtual ~Shape() = 0;
+};
+
+class Circle: virtual public Shape
+{
+	virtual void draw()
+	{
+		std::cout<<"kolo";
+	}
+};
+
+class Square: virtual public Shape
+{
+	virtual void draw()
+	{
+		std::cout<<"kwadrat";
+	}
+};
+
+class Triangle: virtual public Shape
+{
+	virtual void draw()
+	{
+		std::cout<<"trojkat";
+	}
+};
+
+class Rodent
+{
+public:
+	virtual void name() = 0;
+	virtual void weight() = 0;
+};
+
+class Mouse : public virtual Rodent
+{
+	~Mouse()
+	{
+		std::cout<<"~mouse";
+	}
+	virtual void name()
+	{
+		std::cout<<"to jest mysz"<<std::endl;
+	}
+	virtual void weight()
+	{
+		std::cout<<"2 tony" << std::endl;
+	}
+
+};
+
+class Gerbil : public virtual Rodent
+{
+	virtual void name()
+	{
+		std::cout<<"myszoskoczek"<<std::endl;
+	}
+	virtual void weight()
+	{
+		std::cout<<"chudy"<<std::endl;
+	}
+};
+
+class Hamster : public virtual Rodent
+{
+	virtual void name()
+	{
+		std::cout << "chomik"<<std::endl;
+	}
+	virtual void weight()
+	{
+		std::cout<<"gruby"<<std::endl;
+	}
+};
